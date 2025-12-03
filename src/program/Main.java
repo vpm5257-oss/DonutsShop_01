@@ -17,7 +17,7 @@ import java.util.Optional;
  * @author Gokhan
  */
 public class Main extends javax.swing.JFrame {
-    private static DAO contactDAO;
+    private static DAO menuitemDAO;
 
     public Main() {
         initComponents();
@@ -36,37 +36,38 @@ public class Main extends javax.swing.JFrame {
         txtID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtFName = new javax.swing.JTextField();
-        txtLName = new javax.swing.JTextField();
+        txtItemName = new javax.swing.JTextField();
+        txtItemDescription = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblContacts = new javax.swing.JTable();
+        tblMenuItems = new javax.swing.JTable();
         btnInsert = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete1 = new javax.swing.JButton();
-        txtPhoneNumber = new javax.swing.JTextField();
+        txtPrice = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Addressbook CRUD");
+        setTitle("OaksDonuts");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel1.setText("ID");
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel2.setText("First Name");
+        jLabel2.setText("Item Name");
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel3.setText("Last Name");
+        jLabel3.setText("Item Description");
         jLabel3.setToolTipText("");
 
-        tblContacts.setModel(new javax.swing.table.DefaultTableModel(
+        tblMenuItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "First Name", "Last Name", "Phone Number"
+                "ID", "Item Name", "Item Description", "Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -77,15 +78,15 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblContacts.setCellSelectionEnabled(true);
-        tblContacts.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblMenuItems.setCellSelectionEnabled(true);
+        tblMenuItems.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblContactsMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblContacts);
-        if (tblContacts.getColumnModel().getColumnCount() > 0) {
-            tblContacts.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(tblMenuItems);
+        if (tblMenuItems.getColumnModel().getColumnCount() > 0) {
+            tblMenuItems.getColumnModel().getColumn(2).setResizable(false);
         }
 
         btnInsert.setText("Save");
@@ -116,7 +117,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel4.setText("Phone Number");
+        jLabel4.setText("Price");
         jLabel4.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,9 +135,9 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLName, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtItemDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8))
                     .addGroup(layout.createSequentialGroup()
@@ -161,15 +162,15 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtItemDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -193,10 +194,10 @@ public class Main extends javax.swing.JFrame {
         
         if (!txtID.getText().isEmpty()) {
             int ID = Integer.parseInt(txtID.getText().trim());
-            String fName = txtFName.getText().trim();
-            String lName = txtLName.getText().trim();
-            String phoneNumber = txtPhoneNumber.getText().trim();
-            addContact(ID, fName, lName, phoneNumber);
+            String itemname = txtItemName.getText().trim();
+            String itemdescription = txtItemDescription.getText().trim();
+            Double price = Double.parseDouble(txtPrice.getText().trim());
+            addContact(ID, itemname, itemdescription, price);
             refreshContactsTable();
             clearTextFields();
         }
@@ -278,27 +279,27 @@ public class Main extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, msg, title, JOptionPane.ERROR_MESSAGE);
     }
 
-    private static void addContact(int id, String firstName, String lastName, String phoneNumber) {
-        Contact contact;
-        contact = new Contact(id, firstName, lastName, phoneNumber);
-        contactDAO.insert(contact);
+    private static void addMenuItem(int id, String itemname, String itemdescription, double price) {
+        MenuItem menuitem;
+        menuitem = new MenuItem(id, itemname, itemdescription, price);
+        menuitemDAO.insert(menuitem);
     }
     
-    private static void updateContact(int id, String firstName, String lastName, String phoneNumber) {
-        Contact contact;
-        contact = new Contact(id, firstName, lastName, phoneNumber);
-        contactDAO.update(contact);
+    private static void updateContact(int id, String itemname, String itemdescription, double price) {
+        MenuItem menuitem;
+        menuitem = new MenuItem(id, itemname, itemdescription, price);
+        menuitemDAO.update(menuitem);
     }
     
-    private static void deleteContact(int id, String firstName, String lastName, String phoneNumber) {
-        Contact contact;
-        contact = new Contact(id, firstName, lastName, phoneNumber);
-        contactDAO.delete(contact);
+    private static void deleteContact(int id, String itemname, String itemdescription, double price) {
+        MenuItem menuitem;
+        menuitem = new MenuItem(id, itemname, itemdescription, price);
+        menuitemDAO.delete(menuitem);
     }
     
-    static Contact getContact(int id) {
-        Optional<Contact> contact = contactDAO.get(id);
-        return contact.orElseGet(() -> new Contact(-1, "Non-exist", "Non-exist", "Non-exist"));
+    static MenuItem getContact(int id) {
+        Optional<MenuItem> menuitem = menuitemDAO.get(id);
+        return menuitem.orElseGet(() -> new MenuItem(-1, "Non-exist", "Non-exist", "Non-exist"));
     }
     
     //method to clear the txt fields
@@ -331,7 +332,7 @@ public class Main extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        contactDAO = new ContactDAO();
+        menuitemDAO = new MenuItemDAO();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -372,9 +373,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblContacts;
-    private javax.swing.JTextField txtFName;
+    private javax.swing.JTable tblMenuItems;
+    private javax.swing.JTextField txtItemDescription;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtLName;
-    private javax.swing.JTextField txtPhoneNumber;
+    private javax.swing.JTextField txtItemName;
+    private javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables
 }
