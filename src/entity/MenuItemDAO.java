@@ -19,19 +19,19 @@ import java.util.Optional;
  *
  * @author Gokhan
  */
-public class MenuItemDAO implements DAO<Contact>
+public class MenuItemDAO implements DAO<MenuItem>
 {
     public MenuItemDAO() {
         
     }
-    List<Contact> contacts;
+    List<MenuItem> menuitems;
     /**
      * Get a single contact entity as a contact object
      * @param id
      * @return 
      */
     @Override
-    public Optional<Contact> get(int id) {
+    public Optional<MenuItem> get(int id) {
         DB db = DB.getInstance();
         ResultSet rs = null;
         try {
@@ -39,11 +39,11 @@ public class MenuItemDAO implements DAO<Contact>
             PreparedStatement stmt = db.getPreparedStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
-            Contact contact = null;
+            MenuItem menuitem = null;
             while (rs.next()) {
-                contact = new Contact(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("phonenumber"));
+                menuitem = new MenuItem(rs.getInt("id"), rs.getString("itemname"), rs.getString("itemdescription"), rs.getDouble("price"));
             }
-            return Optional.ofNullable(contact);
+            return Optional.ofNullable(menuitem);
         } catch (SQLException ex) {
             System.err.println(ex.toString());
             return null;
@@ -55,19 +55,19 @@ public class MenuItemDAO implements DAO<Contact>
      * @return 
      */
     @Override
-    public List<Contact> getAll() {
+    public List<MenuItem> getAll() {
         DB db = DB.getInstance();
         ResultSet rs = null;
-        contacts = new ArrayList<>();
+        menuitems = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Contact ORDER BY id";
             rs = db.executeQuery(sql);
-            Contact contact = null;
+            MenuItem menuitem = null;
             while (rs.next()) {
-                contact = new Contact(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("phonenumber"));
-                contacts.add(contact);
+                menuitem = new MenuItem(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("phonenumber"));
+                menuitems.add(menuitem);
             }
-            return contacts;
+            return menuitems;
         } catch (SQLException ex) {
             System.err.println(ex.toString());
             return null;
@@ -76,22 +76,22 @@ public class MenuItemDAO implements DAO<Contact>
     
     /**
      * Insert a contact object into contact table
-     * @param contact 
+     * @param menuitem
      */
     @Override
-    public void insert(Contact contact)
+    public void insert(MenuItem menuitem)
     {
         DB db = DB.getInstance();
         try {
-            String sql = "INSERT INTO Contact(ID, firstName, lastName, phoneNumber) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO MenuItem(ID, itemname, itemdescription, price) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = db.getPreparedStatement(sql);
-            stmt.setInt(1, contact.getID());
-            stmt.setString(2, contact.getFirstName());
-            stmt.setString(3, contact.getLastName());
-            stmt.setString(4, contact.getPhoneNumber());
+            stmt.setInt(1, menuitem.getID());
+            stmt.setString(2, menuitem.getItemname());
+            stmt.setString(3, menuitem.getItemDescription());
+            stmt.setDouble(4, menuitem.getPrice());
             int rowInserted = stmt.executeUpdate();
             if (rowInserted > 0) {
-                System.out.println("A new contact was inserted successfully!");
+                System.out.println("A new menu item was inserted successfully!");
             }
         } catch (SQLException ex) {
             System.err.println(ex.toString());
@@ -100,18 +100,18 @@ public class MenuItemDAO implements DAO<Contact>
     
     /**
      * Update a contact entity in database if it exists using a contact object
-     * @param contact
+     * @param menuitem
      */
     @Override
-    public void update(Contact contact) {
+    public void update(MenuItem menuitem) {
         DB db = DB.getInstance();
         try {
-            String sql = "UPDATE Contact SET firstName=?, lastName=?, phoneNumber=? WHERE id=?";
+            String sql = "UPDATE MenuItem SET itemname=?, itemdescription=?, price=? WHERE id=?";
             PreparedStatement stmt = db.getPreparedStatement(sql);
-            stmt.setString(1, contact.getFirstName());
-            stmt.setString(2, contact.getLastName());
-            stmt.setString(3, contact.getPhoneNumber());
-            stmt.setInt(4, contact.getID());
+            stmt.setString(1, menuitem.getItemname());
+            stmt.setString(2, menuitem.getItemDescription());
+            stmt.setDouble(3, menuitem.getPrice());
+            stmt.setInt(4, menuitem.getID());
             int rowsUpdated = stmt.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("An existing contact was updated successfully!");
@@ -123,18 +123,18 @@ public class MenuItemDAO implements DAO<Contact>
     
     /**
      * Delete a contact from contact table if the entity exists
-     * @param contact 
+     * @param menuitem
      */
     @Override
-    public void delete(Contact contact) {
+    public void delete(MenuItem menuitem) {
         DB db = DB.getInstance();
         try {
-            String sql = "DELETE FROM Contact WHERE ID = ?";
+            String sql = "DELETE FROM MenuItem WHERE ID = ?";
             PreparedStatement stmt = db.getPreparedStatement(sql);
-            stmt.setInt(1, contact.getID());
+            stmt.setInt(1, menuitem.getID());
             int rowsDeleted = stmt.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("A contact was deleted successfully!");
+                System.out.println("A menu item was deleted successfully!");
             }
         } catch (SQLException ex) {
             System.err.println(ex.toString());
