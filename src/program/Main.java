@@ -197,7 +197,7 @@ public class Main extends javax.swing.JFrame {
             String itemname = txtItemName.getText().trim();
             String itemdescription = txtItemDescription.getText().trim();
             Double price = Double.parseDouble(txtPrice.getText().trim());
-            addContact(ID, itemname, itemdescription, price);
+            addMenuItem(ID, itemname, itemdescription, price);
             refreshContactsTable();
             clearTextFields();
         }
@@ -211,17 +211,17 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!txtID.getText().isEmpty()) {
             int ID = Integer.parseInt(txtID.getText().trim());
-            String fName = txtFName.getText().trim();
-            String lName = txtLName.getText().trim();
-            String phoneNumber = txtPhoneNumber.getText().trim();
-            Contact contact = getContact(ID);
-            if(contact.getID() != -1) {
-                updateContact(ID, fName, lName, phoneNumber);
+            String itemname = txtItemName.getText().trim();
+            String itemdescription = txtItemDescription.getText().trim();
+            Double price = Double.parseDouble(txtPrice.getText().trim());
+            MenuItem menuitem = getMenuItem(ID);
+            if(menuitem.getID() != -1) {
+                updateMenuItem(ID, itemname, itemdescription, price);
                 refreshContactsTable();
             }
             else
             {
-                alert("Contact does not exist", "Update error");
+                alert("Menu Item does not exist", "Update error");
             }
         }
         else
@@ -236,9 +236,9 @@ public class Main extends javax.swing.JFrame {
         int i = tblContacts.getSelectedRow();
         TableModel model = tblContacts.getModel();
         txtID.setText(model.getValueAt(i, 0).toString());
-        txtFName.setText(model.getValueAt(i, 1).toString());
-        txtLName.setText(model.getValueAt(i, 2).toString());
-        txtPhoneNumber.setText(model.getValueAt(i, 3).toString());
+        txtItemName.setText(model.getValueAt(i, 1).toString());
+        txtItemDescription.setText(model.getValueAt(i, 2).toString());
+        txtPrice.setText(model.getValueAt(i, 3).toString());
     }//GEN-LAST:event_tblContactsMouseClicked
 
     //handles delete button action
@@ -246,14 +246,14 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!txtID.getText().isEmpty()) {
             int ID = Integer.parseInt(txtID.getText().trim());
-            String fName = txtFName.getText().trim();
-            String lName = txtLName.getText().trim();
-            String phoneNumber = txtPhoneNumber.getText().trim();
-            Contact contact = getContact(ID);
-            if(contact.getID() != -1) {
+            String itemname = txtItemName.getText().trim();
+            String itemdescription = txtItemDescription.getText().trim();
+            Double price = Double.parseDouble(txtPrice.getText().trim());
+            MenuItem menuitem = getMenuItem(ID);
+            if(menuitem.getID() != -1) {
                 int option = JOptionPane.showConfirmDialog(rootPane, "Are you sure you want to Delete?", "Delete confirmation", JOptionPane.YES_NO_OPTION);
                 if(option == 0) {
-                    deleteContact(ID, fName, lName, phoneNumber);
+                    deleteMenuItem(ID, itemname, itemdescription, price);
                     refreshContactsTable();
                     clearTextFields();
                 }
@@ -285,13 +285,13 @@ public class Main extends javax.swing.JFrame {
         menuitemDAO.insert(menuitem);
     }
     
-    private static void updateContact(int id, String itemname, String itemdescription, double price) {
+    private static void updateMenuItem(int id, String itemname, String itemdescription, double price) {
         MenuItem menuitem;
         menuitem = new MenuItem(id, itemname, itemdescription, price);
         menuitemDAO.update(menuitem);
     }
     
-    private static void deleteContact(int id, String itemname, String itemdescription, double price) {
+    private static void deleteMenuItem(int id, String itemname, String itemdescription, double price) {
         MenuItem menuitem;
         menuitem = new MenuItem(id, itemname, itemdescription, price);
         menuitemDAO.delete(menuitem);
