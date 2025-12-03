@@ -297,7 +297,7 @@ public class Main extends javax.swing.JFrame {
         menuitemDAO.delete(menuitem);
     }
     
-    static MenuItem getContact(int id) {
+    static MenuItem getMenuItem(int id) {
         Optional<MenuItem> menuitem = menuitemDAO.get(id);
         return menuitem.orElseGet(() -> new MenuItem(-1, "Non-exist", "Non-exist", "Non-exist"));
     }
@@ -305,25 +305,25 @@ public class Main extends javax.swing.JFrame {
     //method to clear the txt fields
     private void clearTextFields() {
         txtID.setText("");
-        txtFName.setText("");
-        txtLName.setText("");
-        txtPhoneNumber.setText("");
+        txtItemName.setText("");
+        txtItemDescription.setText("");
+        txtPrice.setText("");
     }
 
     //fetch 
     private void refreshContactsTable() {
-        List<Contact> contacts = contactDAO.getAll();
-        DefaultTableModel model = (DefaultTableModel) tblContacts.getModel();
+        List<MenuItem> menuitems = menuitemDAO.getAll();
+        DefaultTableModel model = (DefaultTableModel) tblMenuItems.getModel();
         //Clear all items in tblContacts
         for(int i = model.getRowCount() - 1; i >= 0; i-- ) {
             model.removeRow(i);
         }
-        for (Contact contact : contacts) {
+        for (MenuItem menuitem : menuitems) {
                 Object[] row = new Object[4];
-                row[0] = contact.getID();
-                row[1] = contact.getFirstName();
-                row[2] = contact.getLastName();
-                row[3] = contact.getPhoneNumber();
+                row[0] = menuitem.getID();
+                row[1] = menuitem.getItemname();
+                row[2] = menuitem.getItemDescription();
+                row[3] = menuitem.getPrice();
                 model.addRow(row);
         }
     }
