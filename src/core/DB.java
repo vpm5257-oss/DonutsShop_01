@@ -17,7 +17,7 @@ import org.flywaydb.core.Flyway;
  * @author Gokhan
  */
 public class DB {
-    private static final String DB_URL = "jdbc:derby:addressbookdb;create=true;user=addressbookdb;password=addressbookdb";
+    private static final String DB_URL = "jdbc:derby:donutshopdb;create=true;user=donutshopdb;password=donutshopdb";
     private static final String MIGRATION_DIR = "db.migrations";
     private static DB instance = null;
     private final Connection mConnection;
