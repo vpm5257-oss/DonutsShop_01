@@ -35,7 +35,7 @@ public class MenuItemDAO implements DAO<MenuItem>
         DB db = DB.getInstance();
         ResultSet rs = null;
         try {
-            String sql = "SELECT * FROM Contact WHERE id = ?";
+            String sql = "SELECT * FROM MenuItem WHERE id = ?";
             PreparedStatement stmt = db.getPreparedStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -60,11 +60,11 @@ public class MenuItemDAO implements DAO<MenuItem>
         ResultSet rs = null;
         menuitems = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Contact ORDER BY id";
+            String sql = "SELECT * FROM MenuItem ORDER BY id";
             rs = db.executeQuery(sql);
             MenuItem menuitem = null;
             while (rs.next()) {
-                menuitem = new MenuItem(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("phonenumber"));
+                menuitem = new MenuItem(rs.getInt("id"), rs.getString("itemname"), rs.getString("itemdescription"), rs.getDouble("price"));
                 menuitems.add(menuitem);
             }
             return menuitems;
@@ -151,7 +151,7 @@ public class MenuItemDAO implements DAO<MenuItem>
         ResultSet rs = null;
         List<String> headers = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Contact WHERE ID = -1";//We just need this sql query to get the column headers
+            String sql = "SELECT * FROM MenuItem WHERE ID = -1";//We just need this sql query to get the column headers
             rs = db.executeQuery(sql);
             ResultSetMetaData rsmd = rs.getMetaData();
             //Get number of columns in the result set
