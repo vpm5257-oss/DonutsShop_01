@@ -6,7 +6,7 @@
 package program;
 
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import entity.*;
@@ -47,6 +47,7 @@ public class Main extends javax.swing.JFrame {
         btnDelete1 = new javax.swing.JButton();
         txtPrice = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        Order = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OaksDonuts");
@@ -62,6 +63,10 @@ public class Main extends javax.swing.JFrame {
         jLabel3.setText("Item Description");
         jLabel3.setToolTipText("");
 
+        Order.setFont(new java.awt.Font("Verdana", 0, 12));
+        JTabbedPane jTabbedPane1 = new javax.swing.JTabbedPane();
+
+        Order.addTab("Order",jTabbedPane1);
         tblMenuItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -85,6 +90,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblMenuItems);
+
         if (tblMenuItems.getColumnModel().getColumnCount() > 0) {
             tblMenuItems.getColumnModel().getColumn(2).setResizable(false);
         }
@@ -299,7 +305,7 @@ public class Main extends javax.swing.JFrame {
     
     static MenuItem getMenuItem(int id) {
         Optional<MenuItem> menuitem = menuitemDAO.get(id);
-        return menuitem.orElseGet(() -> new MenuItem(-1, "Non-exist", "Non-exist", "Non-exist"));
+        return menuitem.orElseGet(() -> new MenuItem(-1, "Non-exist", "Non-exist", 0.0));
     }
     
     //method to clear the txt fields
@@ -362,7 +368,6 @@ public class Main extends javax.swing.JFrame {
             new Main().setVisible(true);
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete1;
     private javax.swing.JButton btnInsert;
@@ -374,9 +379,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblContacts;
     private javax.swing.JTable tblMenuItems;
+    private javax.swing.JTable tblProducts;
     private javax.swing.JTextField txtItemDescription;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtItemName;
     private javax.swing.JTextField txtPrice;
+    private javax.swing.JTabbedPane Order;
+    
     // End of variables declaration//GEN-END:variables
 }
